@@ -18,6 +18,12 @@ jobs:
       fail-fast: false
 
     steps:
+      # Needed to run on PR or branches 
+      - name: Checkout source
+      - uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
+          
       - name: Set up local environment
         uses: conda-incubator/setup-miniconda@v2
         with:
