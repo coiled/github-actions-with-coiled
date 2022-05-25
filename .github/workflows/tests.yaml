@@ -26,10 +26,10 @@ jobs:
         os: ["ubuntu-latest"]
         software-env: ["coiled-runtime-0-0-3-py38", "coiled-runtime-0-0-3-py39"]
         include:
-          - software-env: "coiled/coiled-runtime-0-0-3-py38"
+          - software-env: "coiled-runtime-0-0-3-py38"
             env-file: ci/environment-3.8.yaml
 
-          - software-env: "coiled/coiled-runtime-0-0-3-py39"
+          - software-env: "coiled-runtime-0-0-3-py39"
             env-file:  ci/environment-3.9.yaml
 
     steps:
@@ -51,5 +51,5 @@ jobs:
       - name: Run quickstart - ${{ matrix.os }}, runtime ${{ matrix.software-env}}
         env:
           DASK_COILED__TOKEN: ${{ secrets.COILED_TOKEN }}
-          SOFTWARE_ENV: ${{ matrix.software-env }}
+          SOFTWARE_ENV: coiled/${{ matrix.software-env }}
         run: python scripts/quickstart.py
