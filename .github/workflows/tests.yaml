@@ -1,0 +1,55 @@
+name: Quickstart test
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+# When this workflow is queued, automatically cancel any previous running
+# or pending jobs from the same branch
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  # Required shell entrypoint to have properly activated conda environments
+  run:
+    shell: bash -l {0}
+
+jobs:
+  quickstart:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-latest"]
+        software-env: ["coiled-runtime-0-0-3-py38", "coiled-runtime-0-0-3-py39"]
+        include:
+          - software-env: "coiled-runtime-0-0-3-py38"
+            env-file: ci/environment-3.8.yaml
+
+          - software-env: "coiled-runtime-0-0-3-py39"
+            env-file:  ci/environment-3.9.yaml
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up local environment
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniforge-variant: Mambaforge
+          use-mamba: true
+          environment-file: ${{ matrix.env-file }}
+      
+      - name: List conda packages
+        shell: bash -l {0}
+        run: conda list
+
+      - name: Run quickstart - ${{ matrix.os }}, runtime ${{ matrix.software-env}}
+        env:
+          DASK_COILED__TOKEN: ${{ secrets.COILED_TOKEN }}
+          SOFTWARE_ENV: ${{ matrix.software-env }}
+        run: python scripts/quickstart.py
