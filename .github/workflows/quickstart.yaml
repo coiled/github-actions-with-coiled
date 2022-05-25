@@ -1,0 +1,36 @@
+name: Quickstart
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+defaults:
+  # Required shell entrypoint to have properly activated conda environments
+  run:
+    shell: bash -l {0}
+
+jobs:
+  quickstart:
+    runs-on: "ubuntu-latest"
+    strategy:
+      fail-fast: false
+
+    steps:
+      # Needed to run on PR or branches 
+      - name: Checkout source
+        uses: actions/checkout@v2
+          
+      - name: Set up local environment
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniforge-variant: Mambaforge
+          use-mamba: true
+          environment-file: ci/environment-3.9.yaml
+
+      - name: Run quickstart
+        env:
+          DASK_COILED__TOKEN: ${{ secrets.COILED_TOKEN }}
+          SOFTWARE_ENV: coiled/coiled-runtime-0-0-3-py39
+        run: python scripts/quickstart.py
