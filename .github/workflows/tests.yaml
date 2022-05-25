@@ -26,10 +26,10 @@ jobs:
         os: ["ubuntu-latest"]
         software-env: ["coiled-runtime-0-0-3-py38", "coiled-runtime-0-0-3-py39"]
         include:
-          - software-env: "coiled-runtime-0-0-3-py38"
+          - software-env: "coiled/coiled-runtime-0-0-3-py38"
             env-file: ci/environment-3.8.yaml
 
-          - software-env: "coiled-runtime-0-0-3-py39"
+          - software-env: "coiled/coiled-runtime-0-0-3-py39"
             env-file:  ci/environment-3.9.yaml
 
     steps:
