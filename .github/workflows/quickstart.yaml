@@ -21,8 +21,6 @@ jobs:
       # Needed to run on PR or branches 
       - name: Checkout source
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
           
       - name: Set up local environment
         uses: conda-incubator/setup-miniconda@v2
@@ -30,10 +28,6 @@ jobs:
           miniforge-variant: Mambaforge
           use-mamba: true
           environment-file: ci/environment-3.9.yaml
-      
-      - name: List conda packages
-        shell: bash -l {0}
-        run: conda list
 
       - name: Run quickstart
         env:
