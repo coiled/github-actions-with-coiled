@@ -7,11 +7,13 @@ import os
 import coiled
 import dask.dataframe as dd
 from dask.distributed import Client
+import pandas as pd
 
 SOFTWARE = os.environ["SOFTWARE_ENV"]
 
 cluster = coiled.Cluster(
     software=SOFTWARE,
+    name="github-action-", #can we add an identifier for the github action here?
     n_workers=10,
     backend_options={"spot": False},
 )
@@ -29,10 +31,15 @@ result = ddf.groupby("passenger_count").tip_amount.mean().compute()
 print(result)
 
 # write result to S3
-result = dd.from_pandas(result, npartitions=1)
-result.to_parquet(
-    "s3://coiled-datasets/github-actions/quickstart/"
-    )
+result = dd.from_pandas(pd.DataFrame(result), npartitions=1)
+bucket_path = "s3://coiled-datasets/github-actions/quickstart/"
+try: 
+    result.to_parquet(
+        "s3://coiled-datasets/github-actions/quickstart/"
+        )
+    print(f"The result was successfully written to {bucket_path}")
+except:
+    print("There was an error writing the result to S3.")
 
 client.close()
 cluster.close()
