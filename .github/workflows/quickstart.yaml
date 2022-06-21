@@ -2,8 +2,8 @@ name: Quickstart
 
 on:
   schedule:
-    # run at noon every day
-    - cron: "0 12 * * *"
+    # run at noon every first day of the month
+    - cron: "0 12 1 * *"
 
 defaults:
   # Required shell entrypoint to have properly activated conda environments
