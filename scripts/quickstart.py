@@ -15,7 +15,7 @@ cluster = coiled.Cluster(
     software=SOFTWARE,
     name="github-actions", 
     n_workers=10,
-    backend_options={"spot": False},
+    worker_memory="8Gib",
 )
 
 client = Client(cluster)
