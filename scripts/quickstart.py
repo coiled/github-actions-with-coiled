@@ -13,7 +13,7 @@ SOFTWARE = os.environ["SOFTWARE_ENV"]
 
 cluster = coiled.Cluster(
     software=SOFTWARE,
-    name="github-action-", #can we add an identifier for the github action here?
+    name="github-actions", 
     n_workers=10,
     backend_options={"spot": False},
 )
@@ -27,11 +27,9 @@ ddf = dd.read_parquet(
 ).persist()
 
 # perform groupby aggregation
-result = ddf.groupby("passenger_count").tip_amount.mean().compute()
-print(result)
+result = ddf.groupby("passenger_count").tip_amount.mean()
 
-# write result to S3
-result = dd.from_pandas(pd.DataFrame(result), npartitions=1)
+# write result to s3
 bucket_path = "s3://coiled-datasets/github-actions/quickstart/"
 try: 
     result.to_parquet(
