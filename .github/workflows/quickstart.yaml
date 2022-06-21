@@ -1,6 +1,10 @@
 name: Quickstart
 
 on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
   schedule:
     # run at noon every first day of the month
     - cron: "0 12 1 * *"
