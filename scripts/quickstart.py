@@ -13,11 +13,12 @@ storage_options = {
     "key": os.environ["AWS_ACCESS_KEY_ID"],
     "secret": os.environ["AWS_SECRET_ACCESS_KEY"],
 }
+GITHUB_RUN_ID = os.environ["GITHUB_RUN_ID"]
 
 
 cluster = coiled.Cluster(
     software=SOFTWARE,
-    name=f"github-actions-{os.environ['GITHUB_RUN_ID']}",
+    name=f"github-actions-{GITHUB_RUN_ID}",
     n_workers=10,
     worker_memory="8Gib",
 )
@@ -35,7 +36,9 @@ result = ddf.groupby("passenger_count").tip_amount.mean()
 result = result.to_frame()
 
 # write result to s3
-bucket_path = "s3://coiled-github-actions-blog/github-actions/quickstart/"
+bucket_path = (
+    f"s3://coiled-github-actions-blog/github-action-{GITHUB_RUN_ID}/quickstart.parquet"
+)
 result.to_parquet(
     bucket_path,
 )
