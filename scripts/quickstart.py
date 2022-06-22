@@ -10,6 +10,8 @@ from dask.distributed import Client
 import pandas as pd
 
 SOFTWARE = os.environ["SOFTWARE_ENV"]
+storage_options = {"key": os.environ["AWS_ACCESS_KEY_ID"], "secret": os.environ["AWS_SECRET_ACCESS_KEY"]} 
+
 
 
 cluster = coiled.Cluster(
@@ -34,9 +36,11 @@ result = result.to_frame()
 # write result to s3
 bucket_path = "s3://coiled-github-actions-blog/github-actions/quickstart/"
 result.to_parquet(  
-    bucket_path
+    bucket_path,
+    storage_options=storage_options,
 )
 print(f"The result was successfully written to {bucket_path}")
+
 
 client.close()
 cluster.close()
