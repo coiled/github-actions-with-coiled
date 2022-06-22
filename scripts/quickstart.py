@@ -29,6 +29,7 @@ ddf = dd.read_parquet(
 
 # perform groupby aggregation
 result = ddf.groupby("passenger_count").tip_amount.mean()
+result = result.to_frame()
 
 # write result to s3
 bucket_path = "s3://coiled-github-actions-blog/github-actions/quickstart/"
