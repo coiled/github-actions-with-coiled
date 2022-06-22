@@ -9,10 +9,6 @@ import dask.dataframe as dd
 from dask.distributed import Client
 
 SOFTWARE = os.environ["SOFTWARE_ENV"]
-storage_options = {
-    "key": os.environ["AWS_ACCESS_KEY_ID"],
-    "secret": os.environ["AWS_SECRET_ACCESS_KEY"],
-}
 GITHUB_RUN_ID = os.environ["GITHUB_RUN_ID"]
 
 
