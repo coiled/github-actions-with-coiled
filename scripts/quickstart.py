@@ -11,9 +11,10 @@ import pandas as pd
 
 SOFTWARE = os.environ["SOFTWARE_ENV"]
 
+
 cluster = coiled.Cluster(
     software=SOFTWARE,
-    name="github-actions", 
+    name=f"github-actions-{os.environ['GITHUB_RUN_ID']}", 
     n_workers=10,
     worker_memory="8Gib",
 )
