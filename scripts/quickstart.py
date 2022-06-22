@@ -38,7 +38,6 @@ result = result.to_frame()
 bucket_path = "s3://coiled-github-actions-blog/github-actions/quickstart/"
 result.to_parquet(
     bucket_path,
-    #    storage_options=storage_options,
 )
 print(f"The result was successfully written to {bucket_path}")
 
