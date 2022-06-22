@@ -31,10 +31,10 @@ ddf = dd.read_parquet(
 result = ddf.groupby("passenger_count").tip_amount.mean()
 
 # write result to s3
-bucket_path = "s3://coiled-datasets/github-actions/quickstart/"
+bucket_path = "s3://coiled-github-actions-blog/github-actions/quickstart/"
 try: 
-    result.to_parquet(
-        "s3://coiled-datasets/github-actions/quickstart/"
+    result.to_parquet(  
+        bucket_path
         )
     print(f"The result was successfully written to {bucket_path}")
 except:
