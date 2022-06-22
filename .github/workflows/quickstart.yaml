@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: main
   schedule:
-    # run at noon every first day of the month
-    - cron: "0 12 1 * *"
+    # run at noon every day
+    - cron: "0 12 * * *"
 
 defaults:
   # Required shell entrypoint to have properly activated conda environments
