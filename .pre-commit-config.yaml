@@ -1,4 +1,9 @@
 repos:
+  -   repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v4.3.0
+      hooks:
+        - id: check-yaml
+          exclude: recipe/meta.yaml
   -   repo: https://github.com/pycqa/isort
       rev: 5.10.1
       hooks:
@@ -9,8 +14,9 @@ repos:
       hooks:
       - id: black
         language_version: python3
-  -   repo: https://gitlab.com/pycqa/flake8
-      rev: 4.0.1
+        exclude: ^alembic/versions/
+  -   repo: https://github.com/pycqa/flake8
+      rev: 5.0.4
       hooks:
       - id: flake8
         language_version: python3
