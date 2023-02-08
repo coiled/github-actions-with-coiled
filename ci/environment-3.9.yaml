@@ -2,4 +2,8 @@ channels:
   - conda-forge
 dependencies:
   - python=3.9
-  - coiled-runtime=0.0.3
+  - coiled
+  - dask
+  - pyarrow
+  - s3fs
+  
