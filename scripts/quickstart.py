@@ -8,15 +8,14 @@ import coiled
 import dask.dataframe as dd
 from dask.distributed import Client
 
-SOFTWARE = os.environ["SOFTWARE_ENV"]
 GITHUB_RUN_ID = os.environ["GITHUB_RUN_ID"]
 
 
 cluster = coiled.Cluster(
-    software=SOFTWARE,
     name=f"github-actions-{GITHUB_RUN_ID}",
     n_workers=10,
     worker_memory="8Gib",
+    package_sync=True,
 )
 
 client = Client(cluster)

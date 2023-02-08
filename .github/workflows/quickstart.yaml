@@ -37,5 +37,4 @@ jobs:
           DASK_COILED__TOKEN: ${{ secrets.COILED_TOKEN }}
           AWS_ACCESS_KEY_ID: ${{ secrets.BLOG_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.BLOG_AWS_SECRET_ACCESS_KEY }}
-          SOFTWARE_ENV: coiled/coiled-runtime-0-0-3-py39
         run: python scripts/quickstart.py
