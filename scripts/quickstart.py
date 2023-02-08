@@ -16,6 +16,7 @@ cluster = coiled.Cluster(
     n_workers=10,
     worker_memory="8Gib",
     package_sync=True,
+    account="dask-engineering",
 )
 
 client = Client(cluster)
