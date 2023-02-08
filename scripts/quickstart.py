@@ -22,7 +22,7 @@ cluster = coiled.Cluster(
 client = Client(cluster)
 
 ddf = dd.read_parquet(
-    "s3://nyc-tlc/trip data/yellow_tripdata_2019-*.parquet",
+    "s3://coiled-datasets/nyc-tlc/2019",
     columns=["passenger_count", "tip_amount"],
     storage_options={"anon": True},
 ).persist()
